@@ -11,6 +11,7 @@ class Post extends Model
 
     // protected $guarded = ['id']; //tudo fillable, meno o que ta no array
     protected $fillable = [
+        'user_id',
         'category_id',
         'slug',
         'title',
@@ -18,8 +19,15 @@ class Post extends Model
         'body',
     ];
 
+    protected $with = ['category', 'author'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
